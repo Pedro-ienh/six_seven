@@ -1,11 +1,12 @@
 :root {
-  --bg: #0f0e0c;
-  --surface: #1a1916;
-  --card: #221f1a;
-  --border: #333028;
-  --text: #f0ead8;
-  --muted: #8a8068;
-  --accent: #c9a84c;
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: #dcdcdc;
+  --text: #111111;
+  --muted: #6d6d6d;
+  --accent: #3b73ff;
+  --button: #f0f4ff;
 }
 
 * {
@@ -24,13 +25,13 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--accent);
+  font-family: Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--text);
   letter-spacing: 0.02em;
 }
 
@@ -41,66 +42,68 @@ header p {
 }
 
 .controls {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
-  justify-content: center;
-  margin-bottom: 2.5rem;
+  justify-items: stretch;
+  margin-bottom: 2rem;
   max-width: 900px;
   margin-inline: auto;
-  padding: 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+@media (max-width: 640px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
 }
 
 button {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.55rem 1.1rem;
-  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
   border: 1px solid var(--border);
+  background: var(--button);
+  color: var(--text);
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
-}
-
-button:active {
-  transform: scale(0.97);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 button:hover {
-  opacity: 0.85;
+  transform: translateY(-1px);
+  border-color: var(--accent);
 }
 
-#btn-pelo    { background: #8b1a1a; color: #fcd; border-color: #8b1a1a; }
-#btn-usa     { background: #1a3a8b; color: #cdf; border-color: #1a3a8b; }
-#btn-filtrar { background: #4a1a8b; color: #e0cdf5; border-color: #4a1a8b; }
-#btn-limpar  { background: transparent; color: var(--muted); }
-#btn-console { background: var(--accent); color: #0f0e0c; border-color: var(--accent); font-weight: 700; }
+#btn-console {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: transparent;
+}
 
 .search-group {
   display: flex;
   gap: 0.5rem;
-  flex: 1;
-  min-width: 220px;
+  width: 100%;
 }
 
 #campo-busca {
   flex: 1;
-  background: var(--bg);
+  background: #fafbff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  padding: 0.55rem 0.9rem;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 #campo-busca:focus {
-  border-color: #4a1a8b;
+  border-color: var(--accent);
 }
 
 #campo-busca::placeholder {
@@ -109,8 +112,8 @@ button:hover {
 
 #gatos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -118,16 +121,15 @@ button:hover {
 .gato-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gato-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(17, 17, 17, 0.08);
 }
 
 .gato-card img {
@@ -135,26 +137,31 @@ button:hover {
   aspect-ratio: 1;
   object-fit: cover;
   display: block;
-  background: #2a2720;
+  background: #f5f5f5;
 }
 
 .gato-card .nome {
-  padding: 0.65rem 0.8rem;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--text);
   text-align: center;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #ececec;
 }
 
-/* highlight states */
-.gato-card.pelo  { background-color: #5c0a0a !important; border-color: #8b1a1a; }
-.gato-card.usa   { background-color: #0a1a5c !important; border-color: #1a3a8b; }
-.gato-card.busca { background-color: #2a0a5c !important; border-color: #4a1a8b; }
+.gato-card.pelo  { background: #fee2e2; border-color: #dc2626; }
+.gato-card.usa   { background: #dbeafe; border-color: #3b82f6; }
+.gato-card.busca { background: #d1fae5; border-color: #10b981; }
+
+.gato-card.pelo .nome,
+.gato-card.usa .nome,
+.gato-card.busca .nome {
+  color: #111827;
+}
 
 .hint {
   text-align: center;
   color: var(--muted);
-  font-size: 0.8rem;
-  margin-top: 2rem;
+  font-size: 0.85rem;
+  margin-top: 1.75rem;
 }
